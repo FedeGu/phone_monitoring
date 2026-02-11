@@ -11,7 +11,7 @@ class TimeAcumulador:
         """
         Actualiza el estado de una persona.
 
-        :param person_id: ID del tracker
+        :param Persona_id: ID del tracker
         :param is_using_phone: bool
         :param timestamp: opcional, si no se pasa usa time.time()
         """
@@ -20,7 +20,7 @@ class TimeAcumulador:
         # Inicializar estructuras si no existen
         if Persona_id not in self.total_time:
             self.total_time[Persona_id] = 0.0
-            self.sessions[Persona_id] = 0
+            self.sessions[Persona_id] = []
         # Caso 1: comienza una sesión
         if is_using_phone and Persona_id not in self.active_sessions:
             self.active_sessions[Persona_id] = timestamp
