@@ -36,3 +36,17 @@ class TimeAcumulador:
                 "end": timestamp,
                 "duration_sec": duration
             })
+
+    def get_total_time(self, Persona_id):
+        return self.total_time.get(Persona_id, 0.0)
+    
+    def get_sessions(self, Persona_id):
+        return self.sessions.get(Persona_id, [])
+    
+    def close_all(self, timestamp=None):
+        """ Cierra todas las sesiones activas(fin del día)"""
+        if timestamp is None:
+            timestamp = time.time()
+
+        for Persona_id in list(self.active_sessions.keys()):
+            self.update(Persona_id, False, timestamp)
