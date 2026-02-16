@@ -1,22 +1,28 @@
 import time
 import cv2
+import numpy as np
 from time_acumulador import TimeAcumulador
+from detector import detect_pose, detect_cell_phone, is_using_phone
 
 acc = TimeAcumulador()
-
-cap = cv2.VideoCapture("video 3.mp4")
-
+cap = cv2.VideoCapture(0)
+Persona_id = 1
 if not cap.isOpened():
-    print("Error: No se pudo abrir el video")
+    print("Error: No se pudo abrir camara")
     exit()
 
-Persona_id = 1
 
 while True:
     ret, frame = cap.read()
 
     if not ret:
         break
+
+    keypoints = detect_pose(frame)
+    phones = detect_cell_phone(frame)
+    using = is_using_phone(frame, keypoints, phones)
+
+    acc.update(Persona_id, using)
 
     cv2.imshow("Frame", frame)
 
@@ -25,9 +31,6 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-
-#simulación
-acc.update(1, True)
 
 print("Persona 1:", acc.get_total_time(1))
 
