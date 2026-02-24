@@ -63,7 +63,7 @@ def detect_cell_phone(frame, debug=False):
                 cv2.putText(frame, label, (x1, y1-5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,0,0), 2)
 
-            if int(cls) in PHONE_LIKE_CLASSES and score > 0.25:
+            if int(cls) in PHONE_LIKE_CLASSES and score > 0.45:
                 phones.append(box)
 
     return phones
